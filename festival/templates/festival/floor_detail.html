@@ -1,0 +1,28 @@
+{% extends 'festival/base.html' %}
+
+{% block title %}{{ floor.building.name }} - Floor {{ floor.floor_number }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">{{ floor.building.name }} - Floor {{ floor.floor_number }}</h1>
+    <div class="alert alert-info text-center">
+        <h2>Total Amount Collected: ₹{{ floor.total_collected }}</h2>
+    </div>
+    <h2 class="text-center">Rooms</h2>
+    <div class="row">
+        {% for room in rooms %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Room {{ room.room_number }}</h5>
+                        <p class="card-text">
+                            Total Collected: ₹{{ room.total_collected }}
+                        </p>
+                        <a href="{% url 'room_detail' room.id %}" class="btn btn-primary">View Members</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

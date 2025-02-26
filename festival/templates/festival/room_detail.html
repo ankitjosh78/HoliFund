@@ -1,0 +1,42 @@
+{% extends 'festival/base.html' %}
+
+{% block title %}Room {{ room.room_number }} - Holi Festival Fund Collection{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Room {{ room.room_number }}</h1>
+    <div class="alert alert-info text-center">
+        <h2>Total Amount Collected: ₹{{ room.total_collected }}</h2>
+    </div>
+    <div class="text-center mb-4">
+        <a href="{% url 'add_member' room.id %}" class="btn btn-success">Add Member</a>
+    </div>
+    <h2 class="text-center">Members</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount Paid</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+                <tr>
+                    <td>{{ member.name }}</td>
+                    <td>₹{{ member.amount_paid }}</td>
+                    <td>
+                        <a href="{% url 'edit_member' member.id %}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{% url 'delete_member' member.id %}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">No members found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}
